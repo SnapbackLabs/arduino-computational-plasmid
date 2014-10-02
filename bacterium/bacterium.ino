@@ -2,7 +2,7 @@
   Snapback @ Maker Faire Rome 2014
  Bacterium
  
- This sketch is written for the Maker Faire 2014, to be used together with chemical sketch.
+ This sketch is written for the Maker Faire 2014, to be used together with chemicals sketch.
  
  Parts required:
  1 Red LED 
@@ -11,7 +11,7 @@
  3 photoresistors
  
  Created 01 September 2014
- Modified 01 September 2014
+ Modified 02 September 2014
  by Claudio Capobianco
  
  http://snapback.io
@@ -43,10 +43,10 @@ int chemRingBuffer[20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 int chemRingBufferWrIdx = 0;
 
 // penicillin pattern: twenty values, ten has to be 0 and ten has to be 1.
-const int penicillinPattern[20] = {0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1};
+// in the next version, this pattern will be sent over serial by the other bacterium
+const int penicillinPattern[20] = {0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,1,1,1,1,1};
 
 const int maxLife = 5000;  // whatever you want
-const int minLife = (maxLife/80); // we don't want that bacterium dies!
 int myLife = maxLife;  // we start with an healty bacterium
 
 bool isPenicillinResistence = false;
@@ -73,16 +73,23 @@ void loop() {
 //    Serial.print("raw sensor Values \t chem: ");
 //    Serial.println(chemSensorValue);
   
-    int chem = map(chemSensorValue, chemLow, chemHigh, 0, 100);
-    chem = constrain(chem,0,100);
+    // Create the pattern of the chemicals around
+    // map the value to the range [0,1000]
+    int chem = map(chemSensorValue, chemLow, chemHigh, 0, 1000);
+    // map again manually in [0,1] (to avoid numerics oddities)
+    if (chem > 500) {
+      chem = 1;
+    } else {
+      chem = 0;
+    }
 //    Serial.print("calib sensor Values \t chem: ");
 //    Serial.println(chem);
       
     chemRingBuffer[chemRingBufferWrIdx] = chem;
     chemRingBufferWrIdx = (chemRingBufferWrIdx + 1) % nSamples;
     
-    // Detect food
-    // use cross-correlation
+    // Check if chemicals are dangerous
+    // use cross-correlation to identify chemicals
     int idx;
     int bufRdIdx = chemRingBufferWrIdx;
     int crossValue = 0;
@@ -94,9 +101,9 @@ void loop() {
 //    Serial.println(crossValue);
       
     // Update life value
-    // increase if any food is found
-    int acceptanceThr =  700; 
-    if ((isPenicillinResistence == false) && (crossValue > acceptanceThr)) {
+    // decrease if penicillin is found
+    int acceptanceThr =  9; 
+    if ((isPenicillinResistence == false) && (crossValue >= acceptanceThr)) {
       Serial.println("penicillin!");
       lifeDown();
     }
@@ -104,37 +111,37 @@ void loop() {
     lifeUp();
     // update life led
     int lifeLedValue = map(myLife, 0, maxLife, 0, 255);
-    lifeLedValue = constrain(lifeLedValue,0,255);
+    lifeLedValue = constrain(lifeLedValue,2,255);
     analogWrite(lifeLedPin,lifeLedValue);
-//    Serial.print("life: ");
-//    Serial.print(myLife);
-//    Serial.print("(");
-//    Serial.print(lifeLedValue);
-//    Serial.println(")");
+    Serial.print("life: ");
+    Serial.print(myLife);
+    Serial.print("(");
+    Serial.print(lifeLedValue);
+    Serial.println(")");
       
     // Check plasmid
     int plasmidState = digitalRead(plasmidPin);
-    Serial.print("plasmidState: ");
-    Serial.println(plasmidState);
     if ( (plasmidState == true) && (isPenicillinResistence == false) ) {
+      isPenicillinResistence = true;
+      myLife = maxLife*0.3;
+      // turn on led to visualize that plasmid is present
+      digitalWrite(ledPin, HIGH);
       Serial.println("Plasmid received!");
     }
-    if (plasmidState == true) {
-      isPenicillinResistence = true;
-    }
-  delay(100);
+  delay(100);  // delay has to be the same of chemicals sketch
 }
 
 void lifeUp() {
-  int stepUp = 1;
+  int stepUp = (myLife*0.01); // not linear, since brightness perception is not linear
+  stepUp = max(1,stepUp);
   int newLife = myLife+stepUp;
   myLife = min(newLife,maxLife);
 }
 
 void lifeDown() {
-    int stepDown = maxLife / 5; // will almost die in 3 rounds
+    int stepDown = maxLife / 3; // will (almost) die in few rounds
     int newLife = myLife-stepDown;
-    myLife = max(minLife,newLife);
+    myLife = max(0,newLife);
 }
 
 void calibPhotoresistors() {
