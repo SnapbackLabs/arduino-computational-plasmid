@@ -49,7 +49,7 @@ const int penicillinPattern[20] = {0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,1,1,1,1,1};
 const int maxLife = 5000;  // whatever you want
 int myLife = maxLife;  // we start with an healty bacterium
 
-bool isPenicillinResistence = false;
+bool isPenicillinResistance = false;
 
 void setup() {
   // initialize serial communications at 9600 bps:
@@ -103,7 +103,7 @@ void loop() {
     // Update life value
     // decrease if penicillin is found
     int acceptanceThr =  9; 
-    if ((isPenicillinResistence == false) && (crossValue >= acceptanceThr)) {
+    if ((isPenicillinResistance == false) && (crossValue >= acceptanceThr)) {
       Serial.println("penicillin!");
       lifeDown();
     }
@@ -121,8 +121,8 @@ void loop() {
       
     // Check plasmid
     int plasmidState = digitalRead(plasmidPin);
-    if ( (plasmidState == true) && (isPenicillinResistence == false) ) {
-      isPenicillinResistence = true;
+    if ( (plasmidState == true) && (isPenicillinResistance == false) ) {
+      isPenicillinResistance = true;
       myLife = maxLife*0.3;
       // turn on led to visualize that plasmid is present
       digitalWrite(ledPin, HIGH);
