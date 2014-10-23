@@ -47,7 +47,8 @@ void loop() {
   // read the input pin
   int buttonState = digitalRead(toggleButton);
   // print out the state of the button:
-  //Serial.println(buttonState);
+  Serial.print("buttonState: ");
+  Serial.println(buttonState);
   isTherePenicillin = buttonState;
  
  // Manage penicillin LED
