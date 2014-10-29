@@ -7,11 +7,11 @@
  Parts required:
  1 Red LED 
  1 10 kilohm resistors
- 3 220 ohm resistors
- 3 photoresistors
+ 1 220 ohm resistors
+ 1 photoresistors
  
  Created 01 October 2014
- Modified 22 October 2014
+ Modified 29 October 2014
  by Claudio Capobianco
  
  http://snapback.io
