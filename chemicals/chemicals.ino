@@ -22,8 +22,9 @@ const int ledPin = 13;
 const int toggleButton = 2;
 const int penicillinLedPin = 8;  // pin with food A 
 
-// food patterns: twenty values, ten has to be 0 and ten has to be 1.
-const int penicillinPattern[20] = {0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,1,1,1,1,1};
+// penicillin pattern: half has to be 0 and half has to be 1
+const int patternLen = 24;
+const int penicillinPattern[patternLen] = {0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1};
 
 int penicillinRingBufferRdIdx = 0;
 
@@ -62,7 +63,7 @@ void loop() {
     } else {
       digitalWrite(penicillinLedPin,LOW);
     }
-    penicillinRingBufferRdIdx = (penicillinRingBufferRdIdx+1)%20;
+    penicillinRingBufferRdIdx = (penicillinRingBufferRdIdx+1)%patternLen;
   } else {
     digitalWrite(ledPin,LOW);
     digitalWrite(penicillinLedPin,LOW);
