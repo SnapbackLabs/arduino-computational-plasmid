@@ -50,17 +50,19 @@ To simulate penicillin in the environment, we use another Arduino with a blinkin
 ![Chemicals schematics](/chemicals_bb.png?raw=true "Chemicals schematics")
 
 ### Body
-To easily transport and manipulate the environment Arduino, we placed all components in a half-liter plastic water bottle. Bottle is cut longitudinally and one part is removed. Breadboard with Arduino and all components is placed inside the bottle, and the LED is pulled out through the top hole of the bottle. To make the whole more stable, ww added beans on the lower part of the bottle.
+To easily transport and manipulate the environment Arduino, we placed all components in a half-liter plastic water bottle. Bottle is cut longitudinally and one part is removed. Breadboard with Arduino and all components is placed inside the bottle, and the LED is pulled out through the top hole of the bottle. To make the whole more stable, we added beans on the lower part of the bottle.
+![Beans](/beans.jpg?raw=true "Beans")
 ![Chemicals bottle](/chemicals_bottle.jpg?raw=true "Chemicals bottle")
 
 
 ## Simulate plasmid transfer between bacteria
 Now, let's play the demo. Upload the bacterium sketch with myMame=Colin on an Arduino, and the same sketch with myName=Kalin on anothe one. Upload chemicals sketch on the last one. Put the chemicals blue LED in the middle between the photoresistors of the two bacteria. Turn on the penicillin (blue LED blinking with a characteristic pattern).
 
-Colin keeps its life at maximum value (red LED full bright), while Kalin begin to fade away. Then connect the software serial
+Colin keeps its life at maximum value (red LED full bright), while Kalin begin to fade away. Connect the software serial to both bacteria and the computational plasmid will be transferred from Colin to Kalin, and Kalin life will be boosted again to the maximum.
 
 
 
 
 # Final result
+Enjoy!
 ![Final result](/img1.png?raw=true "Final Result")
