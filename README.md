@@ -32,8 +32,8 @@ To instantiate Colin or Kalin, you have to change the variable "myName" in the A
 ### Schematics
 Both bacteria has the same schematics.
 
-![Alt text](/bacterium_bb.png?raw=true "Bacteria schematics")
-
+![Bacteria schematics](/bacterium_bb.png?raw=true "Bacteria schematics")
+ <img src="bacterium_bb.png" alt="Bacteria schematics" height="500"> 
 
 ### Body
 To be more "realistic", you may build your bacteria using conductive play dough, look at [this video](https://www.youtube.com/watch?v=j_bkzjvlKTs).
@@ -43,13 +43,12 @@ To be more "realistic", you may build your bacteria using conductive play dough,
 To simulate penicillin in the environment, we use another Arduino with a blinking LED. In the project, we use also a toggle switch to turn on and off the precence of penicillin.
 
 ### Schematics
-![Alt text](/chemicals_bb.png?raw=true "Chemicals schematics")
+![Chemicals schematics](/chemicals_bb.png?raw=true "Chemicals schematics")
 
 ### Body
-To easily transport and manipulate the environment Arduino, we placed all components in a half-liter plastic water bottle. Bottle is cut longitudinally and one part is removed.
+To easily transport and manipulate the environment Arduino, we placed all components in a half-liter plastic water bottle. Bottle is cut longitudinally and one part is removed. Breadboard with Arduino and all components is placed inside the bottle, and the LED is pulled out through the top hole of the bottle. To make the whole more stable, ww added beans on the lower part of the bottle.
+![Chemicals bottle](/chemicals_bottle.jpg?raw=true "Chemicals bottle")
 
-(come fare la bottiglietta)(facile da maneggiare per far interagire i pezzi)
-(foto della bottiglietta)
 
 ## Simulate plasmid transfer between bacteria
 (descrivere la demo)
