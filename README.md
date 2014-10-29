@@ -24,8 +24,8 @@ To simulate the Horizontal Genetic Transfer, we will need:
 
 ## Make the Bacteria
 Colin and Kalin are two bacteria. Colin has plasmid for penicillin resistance, and Kalin is missing this plasmid.
-
 The bacteria chemoreceptors are simulated by the mean of the ambient light sensor.
+To transfer the computational plasmid, we will use a software serial on pin 2 (RX) and 3 (TX).
 
 To instantiate Colin or Kalin, you have to change the variable "myName" in the Arduino project.
 
@@ -33,7 +33,11 @@ To instantiate Colin or Kalin, you have to change the variable "myName" in the A
 Both bacteria has the same schematics.
 
 ![Bacteria schematics](/bacterium_bb.png?raw=true "Bacteria schematics")
- <img src="bacterium_bb.png" alt="Bacteria schematics" height="500"> 
+
+The following picture show the serial connection during the plasmid transfer.
+
+![Plasmid transfer](/HGT_bb.png?raw=true "Plasmid transfer")
+
 
 ### Body
 To be more "realistic", you may build your bacteria using conductive play dough, look at [this video](https://www.youtube.com/watch?v=j_bkzjvlKTs).
@@ -51,8 +55,12 @@ To easily transport and manipulate the environment Arduino, we placed all compon
 
 
 ## Simulate plasmid transfer between bacteria
-(descrivere la demo)
+Now, let's play the demo. Upload the bacterium sketch with myMame=Colin on an Arduino, and the same sketch with myName=Kalin on anothe one. Upload chemicals sketch on the last one. Put the chemicals blue LED in the middle between the photoresistors of the two bacteria. Turn on the penicillin (blue LED blinking with a characteristic pattern).
+
+Colin keeps its life at maximum value (red LED full bright), while Kalin begin to fade away. Then connect the software serial
+
+
 
 
 # Final result
-![Alt text](/img1.png?raw=true "Final Result")
+![Final result](/img1.png?raw=true "Final Result")
